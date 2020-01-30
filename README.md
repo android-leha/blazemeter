@@ -3,6 +3,7 @@
 !!! Please remove my credentials from jenkins =)
 
 /app - Docker application folder
+
 /deployment - k8s deployments scripts 
 
 
