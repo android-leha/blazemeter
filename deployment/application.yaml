@@ -16,7 +16,6 @@ spec:
     spec:
       containers:
         - name: blazeapp
-          image: androidleha/blazesite:latest
-          imagePullPolicy: Always
+          image: androidleha/blazesite:BUILD_ID
           ports:
             - containerPort: 80

@@ -13,7 +13,7 @@ pipeline {
                 success {
                     withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
                         sh "docker login -u $USERNAME -p $PASSWORD"
-                        sh "docker push androidleha/blazesite"
+                        sh "docker push androidleha/blazesite:${BUILD_NUMBER}"
                     }
                 }
                 cleanup {
@@ -23,6 +23,7 @@ pipeline {
         }
         stage('Deploy') {
             steps {
+                sh "sed -i 's/BUILD_ID/${BUILD_NUMBER}/g' deployment/application.yaml"
                 sh "kubectl apply -f deployment/application.yaml"
             }
         }
