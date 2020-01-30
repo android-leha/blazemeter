@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build and upload') {
             steps {
-                echo 'Hello world!'
+                sh "docker ps"
             }
         }
     }
