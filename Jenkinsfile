@@ -11,7 +11,13 @@ pipeline {
             }
             post {
                 success {
-                    sh "docker push androidleha/blazesite"
+                    withCredentials([usernamePassword(credentialsId: 'dockerhub', usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD')]) {
+                        sh "docker login -u $USERNAME -p $PASSWORD"
+                        sh "docker push androidleha/blazesite"
+                    }
+                }
+                cleanup {
+                    sh "docker logout"
                 }
             }
         }
