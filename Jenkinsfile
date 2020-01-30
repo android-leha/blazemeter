@@ -6,7 +6,7 @@ pipeline {
     stages {
         stage('Build and upload') {
             steps {
-                sh "docker ps"
+                sh "cd app && docker build . -t blazesite"
             }
         }
     }
