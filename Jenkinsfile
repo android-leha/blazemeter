@@ -4,11 +4,20 @@
 pipeline {
     agent any
     stages {
-        stage('Build and upload') {
+        stage('Build and Push') {
             steps {
                 sh "sed -i 's/BUILD_ID/${BUILD_NUMBER}/g' app/index.html"
-                sh "cd app && docker build . -t localhost:5000/blazesite:${BUILD_NUMBER} -t blazesite"
-                sh "docker push localhost:5000/blazesite:${BUILD_NUMBER}"
+                sh "cd app && docker build . -t androidleha/blazesite:${BUILD_NUMBER}"
+            }
+            post {
+                success {
+                    sh "docker push androidleha/blazesite:${BUILD_NUMBER}"
+                }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                sh "kubectl apply -f deployment/application.yaml"
             }
         }
     }
