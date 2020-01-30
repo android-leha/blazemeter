@@ -7,11 +7,11 @@ pipeline {
         stage('Build and Push') {
             steps {
                 sh "sed -i 's/BUILD_ID/${BUILD_NUMBER}/g' app/index.html"
-                sh "cd app && docker build . -t androidleha/blazesite:${BUILD_NUMBER}"
+                sh "cd app && docker build . -t androidleha/blazesite:${BUILD_NUMBER} -t androidleha/blazesite"
             }
             post {
                 success {
-                    sh "docker push androidleha/blazesite:${BUILD_NUMBER}"
+                    sh "docker push androidleha/blazesite"
                 }
             }
         }
